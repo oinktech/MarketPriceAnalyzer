@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Introduction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #00bfff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .search-container {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .search-container input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #00bfff;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-container input:focus {
+            border-color: #009acd;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 80px;
+            font-size: 2.5rem;
+            transition: color 0.3s;
+        }
+
+        h1:hover {
+            color: #00bfff;
+        }
+
+        .content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            transform: translateY(20px);
+        }
+
+        .content.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-section {
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 900px;
+        }
+
+        .content-section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+            margin: 0 auto;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            text-align: left;
+            margin: 20px auto;
+        }
+
+        ul li {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #00bfff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s, text-decoration 0.3s;
+        }
+
+        a:hover {
+            color: #009acd;
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <a href="#" onclick="toggleContent('en')">English</a>
+            <a href="#" onclick="toggleContent('zh')">中文</a>
+        </div>
+    </header>
+
+    <div class="search-container" id="search">
+        <input type="text" placeholder="Search..." id="searchInput" oninput="filterContent()">
+    </div>
+
+    <h1>Market Price Analyze</h1>
+
+    <div id="en-content" class="content show">
+        <div class="content-section">
+            <h2>Introduction</h2>
+            <p>Welcome to our website! Here, you will find detailed market demand and estimated pricing analysis for various software. We introduce the main features of each software category, target buyers, and estimated prices. Our platform aims to help users understand current market trends.</p>
+            <p>Explore our features:</p>
+            <ul>
+                <li>Comprehensive market analysis</li>
+                <li>Detailed pricing forecasts</li>
+                <li>Insights into software trends</li>
+                <li>Customizable reports</li>
+                <li>Expert reviews and recommendations</li>
+                <li>Interactive data visualizations</li>
+                <li>Real-time updates</li>
+                <li>Customizable dashboards</li>
+                <li>Comparative analysis tools</li>
+                <li>Market trend forecasting</li>
+            </ul>
+            <a href="https://oinktech.github.io/MarketPriceAnalyzer/en/202409">Latest Report - September 2024</a>
+        </div>
+    </div>
+
+    <div id="zh-content" class="content">
+        <div class="content-section">
+            <h2>介紹</h2>
+            <p>該網頁提供了各類軟體的市場需求和預估定價的全面分析。介紹了每個軟體類別的主要功能以及目標買家和估計價格。該平台旨在幫助用戶了解當前的市場趨勢。</p>
+            <p>探索我們的功能：</p>
+            <ul>
+                <li>全面的市場分析</li>
+                <li>詳細的價格預測</li>
+                <li>軟體趨勢洞察</li>
+                <li>可自訂報告</li>
+                <li>專家評價和建議</li>
+                <li>互動數據可視化</li>
+                <li>即時更新</li>
+                <li>可自訂儀表板</li>
+                <li>比較分析工具</li>
+                <li>市場趨勢預測</li>
+            </ul>
+            <a href="https://oinktech.github.io/MarketPriceAnalyzer/cn/202409">最新報告 - 2024年9月</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Our Website. All rights reserved. | <a href="mailto:oinktech2024@gmail.com">Contact Us</a></p>
+    </div>
+
+    <script>
+        function toggleContent(language) {
+            var enContent = document.getElementById('en-content');
+            var zhContent = document.getElementById('zh-content');
+
+            if (language === 'en') {
+                enContent.classList.add('show');
+                zhContent.classList.remove('show');
+            } else if (language === 'zh') {
+                zhContent.classList.add('show');
+                enContent.classList.remove('show');
+            }
+        }
+
+        function filterContent() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var sections = document.querySelectorAll('.content-section');
+
+            sections.forEach(function (section) {
+                var text = section.textContent.toLowerCase();
+                section.style.display = text.includes(input) ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
