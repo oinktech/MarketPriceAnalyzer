@@ -219,9 +219,12 @@
     <p id="error-message" class="error" style="display: none;">No matching data found</p>
 
     <!-- Sort buttons -->
-    <button class="sort-btn" onclick="sortTable('price')">Sort by Price</button>
-    <button class="sort-btn" onclick="sortTable('name')">Sort by Software Name</button>
-    <button class="sort-btn" onclick="sortTable('company')">Sort by Demand Company</button>
+    <select class="sort-select" id="sortSelect">
+    <option value="">Select Sorting Method</option>
+    <option value="price">Sort by Price</option>
+    <option value="name">Sort by Program Name</option>
+    <option value="company">Sort by Requirement Company</option>
+</select>
 
     <table id="dataTable">
         <thead>
