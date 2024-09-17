@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Market Demand and Estimated Prices</title>
+    <style>
+        /* styles.css */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00bfff;
+            margin-top: 20px;
+            font-size: 36px;
+            animation: fadeInTitle 1s ease-in-out;
+        }
+
+        p.description {
+            text-align: center;
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 90%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #00bfff;
+            color: white;
+            font-size: 20px;
+        }
+
+        td {
+            background-color: #ffffff;
+            font-size: 16px;
+            animation: fadeInRow 0.5s ease-in-out;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.01);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .price-range {
+            color: #0073e6;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        button.sort-btn {
+            background-color: #00bfff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px auto;
+            display: block;
+            font-size: 16px;
+        }
+
+        button.sort-btn:hover {
+            background-color: #0073e6;
+        }
+
+        button.sort-btn.active {
+            background-color: #0073e6;
+        }
+
+        @keyframes fadeInTitle {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInRow {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 20px auto;
+            display: block;
+            border: 2px solid #00bfff;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0073e6;
+        }
+
+        .source-info {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            color: #0073e6;
+            text-decoration: underline;
+        }
+
+        .source-info .tooltip {
+            visibility: hidden;
+            width: 300px;
+            background-color: #ECECEC;
+            color: #000;
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .source-info:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .additional-info {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .privacy-policy {
+            text-align: center;
+            margin: 20px;
+            font-size: 14px;
+        }
+
+        .privacy-policy a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+
+        .privacy-policy a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Software Market Demand and Estimated Prices</h1>
+    <p class="description">An analysis of market demand and estimated price ranges for different types of software and their features, helping you understand the latest trends.</p>
+    <p>This system provides software market demand and estimated prices based on information from ChatGPT.<br>
+        <span class="source-info">Data Sources
+            <span class="tooltip">
+                <a href="https://chatgpt.com/share/66e93d99-4320-8012-a3af-a20c71e2552a" target="_blank">Data Source 1</a><br>
+                <a href="https://chatgpt.com/share/66e93dc7-6658-8012-b8a2-deca70ff0d35" target="_blank">Data Source 2</a><br>
+                <a href="https://chatgpt.com/share/66e93ddc-33b0-8012-a3dd-9d229a592aa0" target="_blank">Data Source 3</a>
+            </span>
+        </span>
+    </p>
+    <!-- Search box -->
+    <input type="text" id="searchInput" placeholder="Search by software type or company...">
+    <p id="error-message" class="error" style="display: none;">No matching data found</p>
+
+    <!-- Sort buttons -->
+    <button class="sort-btn" onclick="sortTable('price')">Sort by Price</button>
+    <button class="sort-btn" onclick="sortTable('name')">Sort by Software Name</button>
+    <button class="sort-btn" onclick="sortTable('company')">Sort by Demand Company</button>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Software Type</th>
+                <th>Demand Companies</th>
+                <th>Main Features</th>
+                <th>Potential Buying Companies</th>
+                <th>Estimated Purchase Price (USD)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Original data -->
+            <tr>
+                <td>AI Chatbots (e.g., ChatGPT)</td>
+                <td>Customer service companies, medical institutions, e-commerce platforms</td>
+                <td>Natural language processing, automated responses, learning user behavior</td>
+                <td>Amazon, Google, Microsoft, Zendesk</td>
+                <td class="price-range">$10,000 - $100,000</td>
+            </tr>
+            <tr>
+                <td>E-commerce Platforms</td>
+                <td>Retail companies, clothing brands, restaurants</td>
+                <td>Product management, payment integration, logistics tracking</td>
+                <td>Shopify, Walmart, Alibaba, JD.com</td>
+                <td class="price-range">$20,000 - $200,000</td>
+            </tr>
+            <tr>
+                <td>Data Analysis Tools</td>
+                <td>Financial institutions, digital marketing companies, research institutions</td>
+                <td>Data visualization, report generation, data cleaning</td>
+                <td>Goldman Sachs, Bloomberg, Adobe Analytics, Salesforce</td>
+                <td class="price-range">$30,000 - $250,000</td>
+            </tr>
+            <tr>
+                <td>Cloud Storage Systems</td>
+                <td>IT companies, educational institutions, government agencies</td>
+                <td>Large capacity storage, real-time backup, security encryption</td>
+                <td>Dropbox, AWS, Google Cloud, IBM</td>
+                <td class="price-range">$50,000 - $500,000</td>
+            </tr>
+            <tr>
+                <td>Mobile Applications</td>
+                <td>Startups, social platforms, entertainment industry</td>
+                <td>User management, push notifications, social integration</td>
+                <td>Snapchat, TikTok, Instagram, Spotify</td>
+                <td class="price-range">$5,000 - $150,000</td>
+            </tr>
+            <tr>
+                <td>Security Software (Firewalls, Encryption Tools)</td>
+                <td>Banks, insurance companies, government agencies</td>
+                <td>Network protection, data encryption, threat detection</td>
+                <td>McAfee, Kaspersky, Cisco, Check Point</td>
+                <td class="price-range">$100,000 - $1,000,000</td>
+            </tr>
+            <tr>
+                <td>Project Management Tools</td>
+                <td>Corporate teams, freelancers, educational institutions</td>
+                <td>Task management, team collaboration, progress tracking</td>
+                <td>Asana, Trello, Basecamp, Monday.com</td>
+                <td class="price-range">$10,000 - $75,000</td>
+            </tr>
+            <tr>
+                <td>Virtual Reality Systems</td>
+                <td>Entertainment industry, education, real estate</td>
+                <td>Immersive environments, interactive simulations, 3D modeling</td>
+                <td>Oculus, HTC Vive, Sony, Magic Leap</td>
+                <td class="price-range">$100,000 - $500,000</td>
+            </tr>
+            <tr>
+                <td>Content Management Systems (CMS)</td>
+                <td>Publishing companies, bloggers, marketing agencies</td>
+                <td>Website management, SEO tools, content editing</td>
+                <td>WordPress, Joomla, Drupal, Wix</td>
+                <td class="price-range">$5,000 - $50,000</td>
+            </tr>
+            <tr>
+                <td>Customer Relationship Management (CRM) Systems</td>
+                <td>Sales teams, customer service departments, marketing teams</td>
+                <td>Contact management, sales tracking, customer engagement</td>
+                <td>HubSpot, Zoho, Salesforce, Microsoft Dynamics</td>
+                <td class="price-range">$20,000 - $150,000</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        <p>&copy; 2024 Software Market Analysis. All rights reserved.</p>
+        <p class="privacy-policy">For more details, view our <a href="#privacyPolicy">Privacy Policy</a>.</p>
+    </footer>
+
+    <script>
+        function sortTable(column) {
+            var table = document.getElementById("dataTable");
+            var rows = Array.from(table.querySelectorAll("tbody tr"));
+            var index = {
+                "price": 4,
+                "name": 0,
+                "company": 1
+            }[column];
+            var sortOrder = document.querySelector(".sort-btn.active") ? (document.querySelector(".sort-btn.active").dataset.sortOrder === 'asc' ? 'desc' : 'asc') : 'asc';
+
+            rows.sort((a, b) => {
+                var aText = a.cells[index].textContent.trim();
+                var bText = b.cells[index].textContent.trim();
+                if (sortOrder === 'asc') {
+                    return aText > bText ? 1 : -1;
+                } else {
+                    return aText < bText ? 1 : -1;
+                }
+            });
+
+            rows.forEach(row => table.querySelector("tbody").appendChild(row));
+            document.querySelectorAll(".sort-btn").forEach(btn => btn.classList.remove("active"));
+            document.querySelector(`.sort-btn[onclick*="${column}"]`).classList.add("active");
+            document.querySelector(`.sort-btn.active`).dataset.sortOrder = sortOrder;
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var filter = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#dataTable tbody tr");
+            var noMatch = true;
+
+            rows.forEach(row => {
+                var cells = Array.from(row.cells);
+                var matches = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+                row.style.display = matches ? "" : "none";
+                if (matches) noMatch = false;
+            });
+
+            document.getElementById('error-message').style.display = noMatch ? "block" : "none";
+        });
+    </script>
+</body>
+</html>
