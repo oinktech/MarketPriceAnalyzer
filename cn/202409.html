@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>程式市場需求與預估價格（2024-9月版）</title>
+    <style>
+/* styles.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #00bfff;
+    margin-top: 20px;
+    font-size: 36px;
+    animation: fadeInTitle 1s ease-in-out;
+}
+
+p.description {
+    text-align: center;
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+table {
+    width: 90%;
+    margin: 40px auto;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #00bfff;
+    color: white;
+    font-size: 20px;
+}
+
+td {
+    background-color: #ffffff;
+    font-size: 16px;
+    animation: fadeInRow 0.5s ease-in-out;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.01);
+    transition: transform 0.2s ease-in-out;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.price-range {
+    color: #0073e6;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+button.sort-btn {
+    background-color: #00bfff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px auto;
+    display: block;
+    font-size: 16px;
+}
+
+button.sort-btn:hover {
+    background-color: #0073e6;
+}
+
+button.sort-btn.active {
+    background-color: #0073e6;
+}
+
+@keyframes fadeInTitle {
+    0% { opacity: 0; transform: translateY(-50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInRow {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin: 20px auto;
+    display: block;
+    border: 2px solid #00bfff;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #0073e6;
+}
+
+.source-info {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: #0073e6;
+    text-decoration: underline;
+}
+
+.source-info .tooltip {
+    visibility: hidden;
+    width: 300px;
+    background-color: #ECECEC;
+    color: #000; /* 更高对比度的颜色 */
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -150px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    word-wrap: break-word; /* 处理文字溢出 */
+    font-size: 14px; /* 合适的字体大小 */
+    line-height: 1.5; /* 合适的行高 */
+}
+
+.source-info:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.additional-info {
+    text-align: center;
+    margin: 20px;
+}
+
+.privacy-policy {
+    text-align: center;
+    margin: 20px;
+    font-size: 14px;
+}
+
+.privacy-policy a {
+    color: #00bfff;
+    text-decoration: none;
+}
+
+.privacy-policy a:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+
+
+    <h1>程式市場需求與預估價格（2024-9月版）</h1>
+    <p class="description">根據不同程式類型和功能的市場需求分析及其預估價格範圍，讓你了解最新趨勢。</p>
+<p class="description">根據不同程式類型和功能的市場需求分析及其預估價格範圍，讓你了解最新趨勢。</p>
+    <p>本系統的程式市場需求、預估價格，前在購買公司都由 ChatGPT 提供。<br>
+        <span class="source-info">資料來源
+            <span class="tooltip">
+                <a href="https://chatgpt.com/share/66e93d99-4320-8012-a3af-a20c71e2552a" target="_blank">資料來源 1</a><br>
+                <a href="https://chatgpt.com/share/66e93dc7-6658-8012-b8a2-deca70ff0d35" target="_blank">資料來源 2</a><br>
+                <a href="https://chatgpt.com/share/66e93ddc-33b0-8012-a3dd-9d229a592aa0" target="_blank">資料來源 3</a>
+            </span>
+        </span>
+    </p>
+    <!-- 搜索框 -->
+    <input type="text" id="searchInput" placeholder="搜索程式類型或公司...">
+    <p id="error-message" class="error" style="display: none;">未找到相關資料</p>
+
+    <!-- 排序按鈕 -->
+    <button class="sort-btn" onclick="sortTable('price')">按價格排序</button>
+    <button class="sort-btn" onclick="sortTable('name')">按程式名稱排序</button>
+    <button class="sort-btn" onclick="sortTable('company')">按需求公司排序</button>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>程式類型</th>
+                <th>需求公司</th>
+                <th>主要功能</th>
+                <th>潛在購買公司</th>
+                <th>預估購買價格 (USD)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 原始資料 -->
+            <tr>
+                <td>AI 聊天機器人 (如 ChatGPT)</td>
+                <td>客服公司、醫療機構、電商平台</td>
+                <td>自然語言處理、自動回應、學習用戶行為</td>
+                <td>亞馬遜、Google、Microsoft、Zendesk</td>
+                <td class="price-range">$10,000 - $100,000</td>
+            </tr>
+            <tr>
+                <td>電子商務平台</td>
+                <td>零售公司、服裝品牌、餐飲業</td>
+                <td>商品管理、支付集成、物流追踪</td>
+                <td>Shopify、沃爾瑪、阿里巴巴、京東</td>
+                <td class="price-range">$20,000 - $200,000</td>
+            </tr>
+            <tr>
+                <td>數據分析工具</td>
+                <td>金融機構、數位行銷公司、研究機構</td>
+                <td>數據可視化、報告生成、數據清理</td>
+                <td>高盛、Bloomberg、Adobe Analytics、Salesforce</td>
+                <td class="price-range">$30,000 - $250,000</td>
+            </tr>
+            <tr>
+                <td>雲端儲存系統</td>
+                <td>IT 公司、教育機構、政府機構</td>
+                <td>大容量儲存、即時備份、安全加密</td>
+                <td>Dropbox、AWS、Google Cloud、IBM</td>
+                <td class="price-range">$50,000 - $500,000</td>
+            </tr>
+            <tr>
+                <td>行動應用程式 (App)</td>
+                <td>初創公司、社交平台、娛樂業</td>
+                <td>用戶管理、推送通知、社交集成</td>
+                <td>Snapchat、TikTok、Instagram、Spotify</td>
+                <td class="price-range">$5,000 - $150,000</td>
+            </tr>
+            <tr>
+                <td>安全性軟體 (防火牆、加密工具)</td>
+                <td>銀行、保險公司、政府機構</td>
+                <td>網絡防護、數據加密、威脅檢測</td>
+                <td>McAfee、Kaspersky、Cisco、Check Point</td>
+                <td class="price-range">$100,000 - $1,000,000</td>
+            </tr>
+            <tr>
+                <td>自動化行銷工具</td>
+                <td>電商平台、廣告公司、企業行銷部門</td>
+                <td>電子郵件營銷、自動化營銷工作流、數據跟蹤</td>
+                <td>HubSpot、Mailchimp、Marketo、Salesforce</td>
+                <td class="price-range">$15,000 - $120,000</td>
+            </tr>
+            <tr>
+                <td>健康監測應用程式</td>
+                <td>醫療公司、健身品牌、保險公司</td>
+                <td>健康數據監測、運動追踪、用戶報告</td>
+                <td>Fitbit、Apple、Garmin、Samsung</td>
+                <td class="price-range">$10,000 - $100,000</td>
+            </tr>
+            <tr>
+                <td>智慧家居控制系統</td>
+                <td>家居電子公司、建築公司、科技公司</td>
+                <td>家電控制、安防監控、能源管理</td>
+                <td>Google Nest、Amazon Echo、Apple HomeKit</td>
+                <td class="price-range">$30,000 - $200,000</td>
+            </tr>
+            <tr>
+                <td>法律文件自動生成工具</td>
+                <td>法律事務所、企業法務部門、合同管理公司</td>
+                <td>合同模板、自動填充、法律合規檢查</td>
+                <td>LegalZoom、Rocket Lawyer、Sign、HelloSign</td>
+                <td class="price-range">$20,000 - $150,000</td>
+            </tr>
+            <tr>
+                <td>虛擬現實體驗平台</td>
+                <td>娛樂公司、教育機構、旅遊業</td>
+                <td>沉浸式體驗、互動內容、場景模擬</td>
+                <td>Oculus、HTC Vive、Magic Leap</td>
+                <td class="price-range">$30,000 - $250,000</td>
+            </tr>
+            <tr>
+                <td>區塊鏈應用程式</td>
+                <td>金融科技公司、供應鏈管理、大型企業</td>
+                <td>智能合約、去中心化交易、數字貨幣</td>
+                <td>Ethereum、IBM Blockchain、Ripple</td>
+                <td class="price-range">$50,000 - $500,000</td>
+            </tr>
+            <tr>
+                <td>電子學習平台</td>
+                <td>教育機構、培訓公司、企業內部培訓</td>
+                <td>課程管理、學習進度跟蹤、測試和評估</td>
+                <td>Coursera、Udemy、Khan Academy</td>
+                <td class="price-range">$15,000 - $120,000</td>
+            </tr>
+            <tr>
+                <td>社交媒體分析工具</td>
+                <td>市場行銷公司、品牌管理、媒體機構</td>
+                <td>社交數據分析、趨勢預測、用戶互動</td>
+                <td>Hootsuite、Buffer、Sprout Social</td>
+                <td class="price-range">$10,000 - $80,000</td>
+            </tr>
+            <tr>
+                <td>即時翻譯應用程式</td>
+                <td>國際業務、旅行公司、外語學習平台</td>
+                <td>多語言翻譯、語音識別、文字轉換</td>
+                <td>Google Translate、iTranslate、Microsoft Translator</td>
+                <td class="price-range">$20,000 - $150,000</td>
+            </tr>
+            <tr>
+                <td>自動化測試工具</td>
+                <td>軟體開發公司、QA 團隊、大型企業</td>
+                <td>測試腳本生成、結果分析、錯誤報告</td>
+                <td>Selenium、TestComplete、QTest</td>
+                <td class="price-range">$25,000 - $200,000</td>
+            </tr>
+            <tr>
+                <td>智能客服系統</td>
+                <td>電商平台、客服中心、保險公司</td>
+                <td>自動回答、問題分類、用戶支持</td>
+                <td>Zendesk、Freshdesk、Intercom</td>
+                <td class="price-range">$30,000 - $250,000</td>
+            </tr>
+            <tr>
+                <td>實時協作工具</td>
+                <td>創意團隊、工程師、跨部門合作</td>
+                <td>文件共享、即時編輯、版本控制</td>
+                <td>Slack、Microsoft Teams、Asana</td>
+                <td class="price-range">$10,000 - $70,000</td>
+            </tr>
+            <tr>
+                <td>網頁性能測試工具</td>
+                <td>網站開發者、數位行銷公司、IT 部門</td>
+                <td>性能分析、加載速度測試、報告生成</td>
+                <td>Pingdom、GTmetrix、Lighthouse</td>
+                <td class="price-range">$15,000 - $120,000</td>
+            </tr>
+            <tr>
+                <td>個人化推薦系統</td>
+                <td>電商平台、媒體公司、在線學習平台</td>
+                <td>用戶行為分析、推薦算法、個性化內容</td>
+                <td>Amazon、Netflix、YouTube</td>
+                <td class="price-range">$20,000 - $180,000</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        <p>© 2024 程式市場需求與預估價格，所有權利保留。</p>
+        <p class="privacy-policy">
+            <a href="#privacyPolicy">隱私政策</a>
+        </p>
+    </footer>
+
+    <!-- 隱私政策部分 -->
+    <section id="privacyPolicy" class="additional-info">
+        <h2>隱私政策</h2>
+        <p>我們重視您的隱私。本隱私政策描述我們如何收集、使用、儲存及保護您的資訊。</p>
+        <h3>1. 收集的資訊</h3>
+        <p>我們可能會收集以下類型的資訊：<br>
+        - 個人識別資訊（如姓名、電子郵件地址）<br>
+        - 瀏覽行為和技術資訊（如 IP 地址、瀏覽器類型、操作系統）</p>
+        <h3>2. 資訊的使用</h3>
+        <p>我們使用收集到的資訊來：<br>
+        - 提供和改進我們的服務<br>
+        - 與您溝通和回應您的詢問<br>
+        - 分析使用情況並進行市場調查</p>
+        <h3>3. 資訊的保護</h3>
+        <p>我們採取適當的安全措施來保護您的資訊免受未經授權的訪問、使用或洩露。</p>
+        <h3>4. 資訊的分享</h3>
+        <p>我們不會將您的個人資訊出售或出租給第三方。我們可能會與合作夥伴共享資訊，以便提供服務或進行必要的操作。</p>
+        <h3>5. 更改隱私政策</h3>
+        <p>我們保留隨時更新本隱私政策的權利。任何更改將在本頁面上發布。</p>
+        <p>如有任何問題，請聯繫我們：</p>
+        <p>電子郵件：<a href="mailto:oinktech2024@gmail.com">oinktech2024@gmail.com</a></p>
+    </section>
+
+    <script>
+        (function() {
+          // 這裡是配置參數
+          const buttonConfig = {
+            width: '70px',
+            height: '70px',
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+            hoverBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+            borderRadius: '8px',
+            fontSize: '14px',
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+            bottom: '20px',
+            right: '20px',
+            iconSize: '20px',
+            textColor: '#00BFFF',
+            textSize: '10px',
+            transition: '0.2s ease'
+          };
+        
+          // 引入按鈕創建腳本並傳遞配置參數
+          const script = document.createElement('script');
+          script.src = 'https://oinktech.github.io/BACKTOHOMEBUTTON/@1-0-0script.js'; // 確保這裡的路徑是正確的
+          script.onload = function() {
+            createHomeButton(buttonConfig);
+          };
+          document.head.appendChild(script);
+        })();
+        document.getElementById('searchInput').addEventListener('input', function() {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#dataTable tbody tr');
+            let found = false;
+            
+            rows.forEach(row => {
+                let cells = row.getElementsByTagName('td');
+                let match = false;
+                for (let i = 0; i < cells.length; i++) {
+                    if (cells[i].innerText.toLowerCase().includes(filter)) {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match) {
+                    row.style.display = '';
+                    found = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('error-message').style.display = found ? 'none' : 'block';
+        });
+
+        function sortTable(sortBy) {
+            let table = document.getElementById('dataTable');
+            let rows = Array.from(table.querySelectorAll('tbody tr'));
+            let sortedRows;
+
+            switch (sortBy) {
+                case 'price':
+                    sortedRows = rows.sort((a, b) => {
+                        let priceA = a.cells[4].innerText.replace(/[\$,]/g, '');
+                        let priceB = b.cells[4].innerText.replace(/[\$,]/g, '');
+                        return parseFloat(priceA) - parseFloat(priceB);
+                    });
+                    break;
+                case 'name':
+                    sortedRows = rows.sort((a, b) => {
+                        let nameA = a.cells[0].innerText.toLowerCase();
+                        let nameB = b.cells[0].innerText.toLowerCase();
+                        return nameA.localeCompare(nameB);
+                    });
+                    break;
+                case 'company':
+                    sortedRows = rows.sort((a, b) => {
+                        let companyA = a.cells[1].innerText.toLowerCase();
+                        let companyB = b.cells[1].innerText.toLowerCase();
+                        return companyA.localeCompare(companyB);
+                    });
+                    break;
+                default:
+                    sortedRows = rows;
+            }
+
+            let tbody = table.querySelector('tbody');
+            tbody.innerHTML = '';
+            sortedRows.forEach(row => tbody.appendChild(row));
+        }
+    </script>
+</body>
+</html>
