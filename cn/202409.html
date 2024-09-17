@@ -183,6 +183,22 @@ input[type="text"]:focus {
     text-decoration: underline;
 }
 
+        .sort-select {
+    background-color: #00bfff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px auto;
+    display: block;
+}
+
+.sort-select option {
+    padding: 10px;
+}
+
     </style>
 </head>
 <body>
@@ -205,9 +221,12 @@ input[type="text"]:focus {
     <p id="error-message" class="error" style="display: none;">未找到相關資料</p>
 
     <!-- 排序按鈕 -->
-    <button class="sort-btn" onclick="sortTable('price')">按價格排序</button>
-    <button class="sort-btn" onclick="sortTable('name')">按程式名稱排序</button>
-    <button class="sort-btn" onclick="sortTable('company')">按需求公司排序</button>
+    <select class="sort-select" id="sortSelect">
+    <option value="">選擇排序方式</option>
+    <option value="price">按價格排序</option>
+    <option value="name">按程式名稱排序</option>
+    <option value="company">按需求公司排序</option>
+</select>
 
     <table id="dataTable">
         <thead>
@@ -446,41 +465,47 @@ input[type="text"]:focus {
             document.getElementById('error-message').style.display = found ? 'none' : 'block';
         });
 
-        function sortTable(sortBy) {
-            let table = document.getElementById('dataTable');
-            let rows = Array.from(table.querySelectorAll('tbody tr'));
-            let sortedRows;
+        // 排序功能
+document.getElementById('sortSelect').addEventListener('change', function() {
+    sortTable(this.value);
+});
 
-            switch (sortBy) {
-                case 'price':
-                    sortedRows = rows.sort((a, b) => {
-                        let priceA = a.cells[4].innerText.replace(/[\$,]/g, '');
-                        let priceB = b.cells[4].innerText.replace(/[\$,]/g, '');
-                        return parseFloat(priceA) - parseFloat(priceB);
-                    });
-                    break;
-                case 'name':
-                    sortedRows = rows.sort((a, b) => {
-                        let nameA = a.cells[0].innerText.toLowerCase();
-                        let nameB = b.cells[0].innerText.toLowerCase();
-                        return nameA.localeCompare(nameB);
-                    });
-                    break;
-                case 'company':
-                    sortedRows = rows.sort((a, b) => {
-                        let companyA = a.cells[1].innerText.toLowerCase();
-                        let companyB = b.cells[1].innerText.toLowerCase();
-                        return companyA.localeCompare(companyB);
-                    });
-                    break;
-                default:
-                    sortedRows = rows;
-            }
+function sortTable(sortBy) {
+    let table = document.getElementById('dataTable');
+    let rows = Array.from(table.querySelectorAll('tbody tr'));
+    let sortedRows;
 
-            let tbody = table.querySelector('tbody');
-            tbody.innerHTML = '';
-            sortedRows.forEach(row => tbody.appendChild(row));
-        }
+    switch (sortBy) {
+        case 'price':
+            sortedRows = rows.sort((a, b) => {
+                let priceA = a.cells[4].innerText.replace(/[\$,]/g, '');
+                let priceB = b.cells[4].innerText.replace(/[\$,]/g, '');
+                return parseFloat(priceA) - parseFloat(priceB);
+            });
+            break;
+        case 'name':
+            sortedRows = rows.sort((a, b) => {
+                let nameA = a.cells[0].innerText.toLowerCase();
+                let nameB = b.cells[0].innerText.toLowerCase();
+                return nameA.localeCompare(nameB);
+            });
+            break;
+        case 'company':
+            sortedRows = rows.sort((a, b) => {
+                let companyA = a.cells[1].innerText.toLowerCase();
+                let companyB = b.cells[1].innerText.toLowerCase();
+                return companyA.localeCompare(companyB);
+            });
+            break;
+        default:
+            return;
+    }
+
+    let tbody = table.querySelector('tbody');
+    tbody.innerHTML = '';
+    sortedRows.forEach(row => tbody.appendChild(row));
+}
+
     </script>
 </body>
 </html>
